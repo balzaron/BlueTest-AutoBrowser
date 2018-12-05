@@ -1,0 +1,39 @@
+main navigation:
+  User icon: shared__main-nav__user-icon
+  Settings menu item: shared__main-nav__settings-menu-item
+super admin:
+  System Preferences menu item: adm__user-setting__system-preferences-menu-item
+  System Preferences edit item: adm__user-setting__system-preferences-edit-item
+  System Preferences currency selection:    adm__user-setting__system-preferences-currency-selection
+  System Preferences language selection:    adm__user-setting__system-preferences-language-selection
+  System Preferences update button:    adm__user-setting__system-preferences-update-button
+  System Preferences cancel button:    adm__user-setting__system-preferences-cancel-button
+  Account security change password button:    adm__user-setting__account-security-change-password-button
+  Account security old password input:    adm__user-setting__account-security-old-password-input
+  Account security new password input:    adm__user-setting__account-security-new-password-input
+  Account security new password confirm input:    adm__user-setting__account-security-new-password-confirm-input
+  Account security change password confirm button:    adm__user-setting__account-security-change-password-confirm-button
+  Account security cancel confirm button:    adm__user-setting__account-security-cancel-confirm-button
+  Enabled apps super admin:    adm__user-setting__enabled-app-ADM-bar
+  Enabled apps super admin switch:    adm__user-setting__enabled-app-group-ADM_SUP-switch
+  Enabled apps Portx crm bar:    adm__user-setting__enabled-app-CRM-bar
+  Portx crm admin switch:    adm__user-setting__enabled-app-group-CRM_ADM-switch
+  Portx crm user switch:    adm__user-setting__enabled-app-group-CRM_USR-switch
+  Portx portfolio bar:    adm__user-setting__enabled-app-RED-bar
+  Protx portfolio dashboard user switch:    adm__user-setting__enabled-app-group-RED_USR-switch
+  Ami bar:    adm__user-setting__enabled-app-AMI-bar
+  Ami user switch:    adm__user-setting__enabled-app-group-AMI_USR-switch
+  PortX - Transaction bar:    adm__user-setting__enabled-app-TXN-bar
+  transaction admin switch:    adm__user-setting__enabled-app-group-TXN_ADM-switch
+  transaction user switch:    adm__user-setting__enabled-app-group-TXN_USR-switch
+  oms execution team:    adm__user-setting__enabled-app-group-OMS_EXE-switch
+  workflow bar: adm__user-setting__enabled-app-WKF-bar
+  workflow admin switch:    adm__user-setting__enabled-app-group-WKF_ADM-switch
+  workflow internal switch:    adm__user-setting__enabled-app-group-WKF_INT-switch
+  workflow client switch:    adm__user-setting__enabled-app-group-WKF_CLT-switch
+  communication bar:    adm__user-setting__enabled-app-CMU-bar
+  communication admin switch:    adm__user-setting__enabled-app-group-CMU_ADM-switch
+  communication user switch:    adm__user-setting__enabled-app-group-CMU_USR-switch
+  portx financial instrument bar:    adm__user-setting__enabled-app-PRD-bar
+  product admin switch:    adm__user-setting__enabled-app-group-PRD_ADM-switch
+  product user switch:    adm__user-setting__enabled-app-group-PRD_USR-switch

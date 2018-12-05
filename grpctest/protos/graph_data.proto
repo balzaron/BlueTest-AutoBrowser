@@ -1,0 +1,85 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.miotech.graph";
+
+package com.mioying.etl.models.protobuf.ami.knowledge_graph;
+
+import "graph_struct.proto";
+import "mioying_data_common.proto";
+
+enum KnowledgeGraphNodeType { //deprecated
+                              KNOWLEDGE_GRAPH_NODE_TYPE_INDUSTRY=0;
+                              KNOWLEDGE_GRAPH_NODE_TYPE_COMPANY=1;
+                              KNOWLEDGE_GRAPH_NODE_TYPE_INSTRUMENT=2;
+                              KNOWLEDGE_GRAPH_NODE_TYPE_EXCHANGE=3;
+                              KNOWLEDGE_GRAPH_NODE_TYPE_PEOPLE=4;
+                              KNOWLEDGE_GRAPH_NODE_TYPE_PRODUCT=5;
+                              KNOWLEDGE_GRAPH_NODE_TYPE_FUND=6;
+                              KNOWLEDGE_GRAPH_NODE_TYPE_NARRATIVE=7;
+                              KNOWLEDGE_GRAPH_NODE_TYPE_TAG=8;
+}
+
+enum KnowledgeGraphEdgeType {
+    KNOWLEDGE_GRAPH_EDGE_TYPE_PARENT_INDUSTRY=0;
+    KNOWLEDGE_GRAPH_EDGE_TYPE_COMPANY_BELONGS_TO_INDUSTRY=1;
+    KNOWLEDGE_GRAPH_EDGE_TYPE_COMPANY_HOLDS_INSTRUMENT=2;
+    KNOWLEDGE_GRAPH_EDGE_TYPE_INSTRUMENT_BELONGS_TO_EXCHANGE=3;
+    KNOWLEDGE_GRAPH_EDGE_TYPE_PEOPLE_FROM_COMPANY=4;
+    KNOWLEDGE_GRAPH_EDGE_TYPE_COMPANY_EMPLOYS_PEOPLE=11;
+    KNOWLEDGE_GRAPH_EDGE_TYPE_COMPANY_COMPETITOR_COMPANY=5;
+    KNOWLEDGE_GRAPH_EDGE_TYPE_COMPANY_CUSTOMER_COMPANY=6;
+    KNOWLEDGE_GRAPH_EDGE_TYPE_COMPANY_PARENT_COMPANY=7;
+    KNOWLEDGE_GRAPH_EDGE_TYPE_COMPANY_PUBLISH_PRODUCT=8;
+    KNOWLEDGE_GRAPH_EDGE_TYPE_COMPANY_INVEST_COMPANY=9;
+    KNOWLEDGE_GRAPH_EDGE_TYPE_FUND_CREATED_BY_COMPANY=10;
+    KNOWLEDGE_GRAPH_EDGE_TYPE_COMPANY_HOLDS_INVESTMENT_ARM=12;
+    KNOWLEDGE_GRAPH_EDGE_TYPE_COMPANY_MERGED_ENTITY=13;
+    KNOWLEDGE_GRAPH_EDGE_TYPE_PEOPLE_FAMILY_RELATIONS=14;
+    KNOWLEDGE_GRAPH_EDGE_TYPE_COMPANY_SUPPLIER_TO_DISTRIBUTOR=15;
+    KNOWLEDGE_GRAPH_EDGE_TYPE_COMPANY_CREDITOR_TO_BORROWER=16;
+    KNOWLEDGE_GRAPH_EDGE_TYPE_COMPANY_VENDOR_TO_CLIENT=17;
+    KNOWLEDGE_GRAPH_EDGE_TYPE_TAG_SUBCLASS_OF_TAG=18;
+    KNOWLEDGE_GRAPH_EDGE_TYPE_NARRATIVE_MENTIONED_COMPANY=19;
+}
+
+message KnowledgeGraphNode {
+    string id = 1;
+    com.mioying.data.models.protobuf.common.MioDataElementType type = 2;
+    map<string, google.protobuf.Value> attributes = 3;
+}
+
+message KnowledgeGraphEdge {
+    string src = 1;
+    string dst = 2;
+    KnowledgeGraphEdgeType type = 3;
+    map<string, google.protobuf.Value> attributes = 4;
+}
+
+message KnowledgeGraph {
+    repeated KnowledgeGraphNode nodes = 1;
+    repeated KnowledgeGraphEdge edges = 2;
+}
+
+message KnowledgeGraphSimilarity {
+    string srcId = 1;
+    string dstId = 2;
+    double similarity = 3;
+}
+
+message KnowledgeGraphClusterAnalysis {
+    repeated KnowledgeGraphNode nodes = 1;
+    repeated KnowledgeGraphEdge edges = 2;
+    repeated KnowledgeGraphSimilarity similarities = 3;
+}
+
+message KnowledgeGraphNodeEmbedding {
+    string id = 1;
+    repeated double embeddingVector = 2;
+}
+
+message KnowledgeGraphEmbeddingAnalysis {
+    repeated KnowledgeGraphNode nodes = 1;
+    repeated KnowledgeGraphEdge edges = 2;
+    map<string, google.protobuf.ListValue> embeddings = 3;
+}

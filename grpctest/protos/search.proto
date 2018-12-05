@@ -1,0 +1,713 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.miotech.search.models.protobuf";
+option java_outer_classname = "MioyingSearchPlatform";
+import "graph_data.proto";
+import "mioying_data_common.proto";
+import "dmp.proto";
+
+service MioyingSearch {
+    rpc search(SearchRequest) returns (SearchResult);
+    rpc batchSearch(BatchSearchRequest) returns (BatchSearchResult);
+    rpc autoSuggest(AutoSuggestRequest) returns (AutoSuggestResult);
+    rpc getSearchFieldValueList(GetSearchFieldValueListRequest) returns (GetSearchFieldValueListResult);
+    rpc getRelationshipCount(GetRelationshipCountRequest) returns (GetRelationshipCountResult);
+}
+
+enum SearchElementType { //deprecated
+                         SEARCH_ELEMENT_TYPE_ALL = 0;
+                         SEARCH_ELEMENT_TYPE_COMPANY = 1;
+                         SEARCH_ELEMENT_TYPE_NEWS = 2;
+                         SEARCH_ELEMENT_TYPE_PEOPLE = 3;
+                         SEARCH_ELEMENT_TYPE_SECURITY = 4;
+                         SEARCH_ELEMENT_TYPE_COMPANY_TRANSACTION = 5;
+                         SEARCH_ELEMENT_TYPE_EVENT = 6;
+                         SEARCH_ELEMENT_TYPE_GRAPH_EDGE = 7;
+                         SEARCH_ELEMENT_TYPE_DMP_SECURITY = 8;
+}
+
+enum SearchFilterType {
+    SEARCH_FILTER_TYPE_NO_FILTER = 0;
+    SEARCH_FILTER_TYPE_TERM = 1;
+    SEARCH_FILTER_TYPE_EXIST = 2;
+    SEARCH_FILTER_TYPE_RANGE = 3;
+    SEARCH_FILTER_TYPE_NOT_EXIST = 4;
+}
+
+enum SearchFilterOperator {
+    SEARCH_FILTER_OPERATOR_GT = 0;
+    SEARCH_FILTER_OPERATOR_GTE = 1;
+    SEARCH_FILTER_OPERATOR_LT = 2;
+    SEARCH_FILTER_OPERATOR_LTE = 3;
+    SEARCH_FILTER_OPERATOR_IN = 4;
+    SEARCH_FILTER_OPERATOR_NOT_IN = 5;
+}
+
+enum GeneralOperationReturnCode {
+    SUCCESS = 0;
+    FAILED_WITH_GENERAL_REASON = 1;
+}
+
+enum SearchSortOrder {
+    SEARCH_SORT_NO_ORDER = 0;
+    SEARCH_SORT_DESC = 1;
+    SEARCH_SORT_ASC = 2;
+}
+
+enum SearchAggregateFunc {
+    SEARCH_AGGREGATION_FUNC_NO_FUNC = 0;
+    SEARCH_AGGREGATION_FUNC_SUM = 1;
+    SEARCH_AGGREGATION_FUNC_TOP = 2;
+    SEARCH_AGGREGATION_FUNC_AVG = 3;
+    SEARCH_AGGREGATION_FUNC_MAX = 4;
+    SEARCH_AGGREGATION_FUNC_MIN = 5;
+}
+
+enum SearchXAxisAggregateFunc {
+    SEARCH_XAXIS_AGGREGATE_FUNC_NO_FUNC = 0;
+    SEARCH_XAXIS_AGGREGATE_FUNC_HISTOGRAM = 1;
+    SEARCH_XAXIS_AGGREGATE_FUNC_TERM= 2;
+}
+
+message GetRelationshipCountRequest {
+    repeated string ids = 1;
+}
+
+message RelationshipItem {
+    string id = 1;
+    int32 totalEdgeCount = 2;
+    int32 investorCount = 3;
+    int32 parentSubsidiaryCount = 4;
+    int32 familyCount = 5;
+    int32 employmentCount = 6;
+    com.mioying.etl.models.protobuf.ami.knowledge_graph.KnowledgeGraphEdgeType type = 7;
+    string direction = 8;
+    int32 count = 9;
+}
+
+message GetRelationshipCountResult {
+    repeated RelationshipItem relations = 1;
+}
+
+message GeneralOperationResult {
+    GeneralOperationReturnCode code = 1;
+    string errorMessage = 2;
+}
+
+message PaginationRequest {
+    int64 pageSize = 1;
+    int64 pageNum = 2;
+}
+
+message SearchFilterOp {
+    SearchFilterOperator operator = 1;
+    repeated string values = 2;
+}
+
+message SearchFilter {
+    string fieldName = 1;
+    repeated SearchFilterOp ops = 2;
+    SearchFilterType type = 3;
+}
+
+message SearchSort {
+    SearchSortOrder order = 1;
+    string fieldName = 2;
+}
+
+message SearchAggregation {
+    SearchAggregateFunc searchAggregateFunc = 1;
+    string fieldName = 2;
+    int32 size = 3;
+    SearchSortOrder order = 4;
+    SearchXAxisAggregateFunc searchXAxisAggregateFunc = 5;
+    double interval = 6;
+    string yAxisFieldName = 7;
+    double offset = 8;
+}
+
+message BatchSearchRequest {
+    repeated SearchRequest searchRequests= 1;
+}
+
+message BatchSearchResult {
+    repeated SearchResult searchResults= 1;
+}
+
+message SearchRequest {
+    string query = 1;
+    SearchElementType elementType = 2; //deprecated
+    PaginationRequest pagination = 3;
+    repeated SearchFilter additional_filters = 4;
+    repeated string includeFields = 5;
+    repeated string excludeFields = 6;
+    SearchSort searchSort = 7;
+    SearchAggregation searchAggregation = 8;
+    com.mioying.data.models.protobuf.common.MioDataElementType dataType = 9;
+    int32 requestId = 10;
+    SearchLanguage language = 11;
+}
+
+message SearchResultStat {
+    int64 totalCount = 1;
+    repeated SearchResultSection sections = 2;
+}
+
+message SearchResultSection {
+    int64 totalCount = 1;
+    repeated string globalIds = 2;
+    SearchResultSectionType sectionType = 3;
+    com.mioying.data.models.protobuf.common.MioDataElementType dataType = 4;
+}
+
+enum SearchResultSectionType {
+    SEARCH_RESULT_ELEMENT_TYPE_SECURITY = 0;
+    SEARCH_RESULT_ELEMENT_TYPE_COMPANY = 1;
+    SEARCH_RESULT_ELEMENT_TYPE_NEWS = 2;
+    SEARCH_RESULT_ELEMENT_TYPE_PEOPLE = 3;
+    SEARCH_RESULT_ELEMENT_TYPE_COMPANY_TRANSACTION = 4;
+    SEARCH_RESULT_ELEMENT_TYPE_EVENT = 5;
+    SEARCH_RESULT_ELEMENT_TYPE_GRAPH_EDGE = 6;
+}
+
+message SearchResultElement {
+    string entityId = 1;
+    SearchElementType entityType = 2; //deprecated
+    SearchCompany company = 3;
+    SearchPeople people = 4;
+    SearchNarrative narrative = 5;
+    SearchIndividualTransaction transaction = 6;
+    SearchAsset security = 7;
+    com.mioying.etl.models.protobuf.ami.knowledge_graph.KnowledgeGraphEdge graphEdge = 8;
+    com.mioying.data.models.protobuf.common.MioDataElementType dataType = 9;
+}
+
+message SearchAggregateResultElement {
+    string key = 1;
+    int64 docCount = 2;
+    string value = 3;
+}
+
+message SearchResult {
+    GeneralOperationResult operationResult = 1;
+    SearchResultStat stat = 2;
+    repeated SearchResultElement results = 3;
+    repeated SearchAggregateResultElement elements = 4;
+    int32 requestId = 5;
+}
+
+message AutoSuggestRequest {
+    string query = 1;
+    PaginationRequest pagination = 2;
+}
+
+message AutoSuggestResult {
+    GeneralOperationResult operationResult = 1;
+    SearchResultStat stat = 2;
+    repeated string results = 3;
+}
+
+message SearchTransaction {
+    int64 transactionId = 1;
+    int64 announcedTimestamp = 2;
+    int64 closedTimestamp = 3;
+    string company = 4;
+    string targetCompany = 5;
+    string type = 6;
+    string companyRole = 7;
+    double transactionSize = 8;
+    string companyCountry = 9;
+    string companyType = 10;
+    string companyIndustry = 11;
+    string companyIndustryGroup = 12;
+    string companySector = 13;
+    string targetCompanyCountry = 14;
+    string targetCompanyType = 15;
+    string targetCompanyIndustry = 16;
+    string targetCompanyIndustryGroup = 17;
+    string targetCompanySector = 18;
+    string companyName = 19;
+    string targetCompanyName = 20;
+    string companyCountryCode = 21;
+    string targetCompanyCountryCode = 22;
+    string roundText = 23;
+    double impliedEnterpriseValue = 24;
+    int64 targetCompanyYearFound = 25;
+    SearchTransactionChineseExtendInfo chineseExtendInfo = 26;
+}
+
+message SearchTransactionChineseExtendInfo {
+    string roundCn = 1;
+    double ratio = 2;
+    string targetCompanyProvinceCn = 3;
+    string targetCompanyIndustryCn = 4;
+    string productNameCn = 5;
+    string productIndustryCn = 6;
+    string productDescriptionCn = 7;
+    string companyNameCn = 8;
+    string targetCompanyNameCn = 9;
+}
+
+message FinancialData {
+    int64 fiscalYear = 1;
+    double totalRevenue = 2;
+    double netIncome = 3;
+    string financialDataId = 4;
+    double ebitda = 5;
+    double operatingIncome = 6;
+    double totalAssets = 7;
+    double totalLiability = 8;
+    double cashFlowOperating = 9;
+    double cashFlowInvesting = 10;
+    double cashFlowFinancing = 11;
+    double debtRatio = 12;
+}
+
+// Detailed Search Message
+message SearchCompany {
+    string name = 1;
+    string description = 2;
+    string productDescription = 3;
+    repeated string keyword = 4;
+    string industry = 5;
+    string country = 6;
+    string type = 7;
+    double eps = 8;
+    double ebitda = 9;
+    double returnOnEquity = 10;
+    double grossMargin = 11;
+    double totalAsset = 12;
+    double currentRatio = 13;
+    double totalEquity = 14;
+    double totalRevenue = 15;
+    double grossProfit = 16;
+    string globalId = 17;
+    double mergerAcquisitionSeller = 18; // deprecated
+    double mergerAcquisitionLender = 19; // deprecated
+    double mergerAcquisitionTarget = 20; // deprecated
+    double mergerAcquisitionInvestor = 21; // deprecated
+    double privatePlacementSeller = 22; // deprecated
+    double privatePlacementLender = 23; // deprecated
+    double privatePlacementTarget = 24; // deprecated
+    double privatePlacementInvestor = 25; // deprecated
+    double netIncome = 26;
+    string sector = 27;
+    int64 yearfound = 28;
+    string industryGroup = 29;
+    string label = 30;
+    string address = 31;
+    string phone = 32;
+    string website = 33;
+    repeated SearchTransaction transactions = 34;
+    double score = 35;
+    string source = 36;
+    ComplianceCheckRecord complianceCheckRecord = 37;
+    repeated FinancialData financialData = 38;
+    repeated int64 assetId = 39;
+    string countryCode = 40;
+    com.mioying.data.models.protobuf.common.MioDataElementType elementType = 41;
+    repeated string searchNames = 42;
+    repeated string tags = 43;
+    double operatingIncome = 44;
+    double totalAssets = 45;
+    double totalLiability = 46;
+    double cashFlowOperating = 47;
+    double cashFlowInvesting = 48;
+    double cashFlowFinancing = 49;
+    double debtRatio = 50;
+    SearchLanguage language = 51;
+    SearchCompanyChineseExtendInfo chineseExtendInfo = 52;
+}
+
+message SearchCompanyChineseExtendInfo {
+    string nameCn = 1;
+    string statusCn = 2;
+    string emailCn = 3;
+    string addressCn = 4;
+    string descriptionCn = 5;
+    string legalRepresentitiveCn = 6;
+    string registeredCapitalCn = 7;
+    string registeredAddressCn = 8;
+    int64 registrationDateCn = 9;
+    string registrationNumberCn = 10;
+    string unifiedSocialCodeCn = 11;
+    string taxpayerNumberCn = 12;
+    string organizationCodeCn = 13;
+    int64 businessFromCn = 14;
+    int64 businessToCn = 15;
+    string issuedCapitalCn = 16;
+    string typeCn = 17;
+    string staffSizeCn = 18;
+    string registrationAuthorityCn = 19;
+    int64 approvedDateCn = 20;
+    string englishNameCn = 21;
+    repeated ProductChinese productsCn = 22;
+    repeated StaffChinese staffCn = 23;
+    repeated AdministrativePenaltyChinese administrativePenaltiesCn = 24;
+    repeated BusinessAbnormaltyChinese businessAbnormaltiesCn = 25;
+    repeated CriminalOffenseChinese crimialOffensesCn = 26;
+    bool hasBusinessAbnormaltyCn = 27;
+    bool hasCriminalOffenseCn = 28;
+    bool hasAdministrativePenaltyCn = 29;
+    string industryCn = 30;
+    string companyTypeCn = 31;
+    string provinceCn = 32;
+    string businessScopeCn  = 33;
+    repeated ShareHolderChinese shareholderCn = 34;
+    repeated EquityChinese equityCn = 35;
+    repeated MortgageChinese mortgageCn = 36;
+    repeated IntellectualPropertyChinese intellectualPropertyCn = 37;
+    repeated ChangeInfoChinese changeInfoCn = 38;
+    bool hasEquityCn = 39;
+    bool hasMortgageCn = 40;
+    bool hasIntellectualPropertyCn = 41;
+    bool hasChangeInfoCn = 42;
+    repeated string searchNamesCn = 43;
+}
+
+message ProductChinese {
+    string productNameCn = 1;
+    string productDescriptionCn = 2;
+    string productIndustry = 3;
+}
+
+message StaffChinese {
+    string staffNameCn = 1;
+    string staffPositionCn = 2;
+    string staffDescriptionCn = 3;
+}
+
+message AdministrativePenaltyChinese {
+    int64 penaltyDateCn = 1;
+    string penaltyDocNumberCn = 2;
+    string penaltyTypeCn = 3;
+    string penaltyContentCn = 4;
+    string penaltyAuthorityCn = 5;
+}
+
+message BusinessAbnormaltyChinese {
+    int64 abnormaltyDateCn = 1;
+    string abnormaltyReasonCn = 2;
+    string abnormaltyAuthorityCn = 3;
+}
+
+message CriminalOffenseChinese {
+    int64 criminalDateCn = 1;
+    string criminalReasonCn = 2;
+    string criminalAuthorityCn = 3;
+}
+
+message EquityChinese {
+    int64 registrationDateCn = 1;
+    string registrationNumberCn = 2;
+    string pledgorNameCn = 3;
+    string pledgeeNameCn = 4;
+    string equityAmountCn = 5;
+    string stateCn = 6;
+}
+
+message MortgageChinese {
+    int64 registrationDateCn = 1;
+    string registrationNumberCn = 2;
+    string mortgageTypeCn = 3;
+    string amountCn = 4;
+    string pawnNameCn = 5;
+    string peopleNameCn = 6;
+    string registrationAuthorityCn = 7;
+    string statusCn = 8;
+}
+
+
+message ShareHolderChinese {
+    int64 capitalDateCn = 1;
+    string shareHolderNameCn = 2;
+    string shareHolderTypeCn = 3;
+    string capitalSize = 4;
+    double ratio = 5;
+}
+
+message IntellectualPropertyChinese {
+    int64 publicityDateCn = 1;
+    string iprCertificateNumberCn = 2;
+    string iprNameCn = 3;
+    string iprTypeCn = 4;
+    string pledgorNameCn = 5;
+    string pledgeeNameCn = 6;
+    string pledgeRegPeriodCn = 7;
+    string stateCn = 8;
+}
+
+message ChangeInfoChinese {
+    int64 changeDateCn = 1;
+    string changeItemCn = 2;
+    string contentBeforeCn = 3;
+    string contentAfterCn = 4;
+}
+
+message WorkExperience {
+    int64 start = 1;
+    int64 end = 2;
+    string company = 3;
+    string functionName= 4;
+}
+
+message Education {
+    string university = 1;
+    int64 start = 2;
+    int64 end = 3;
+}
+
+message SearchPeople {
+    string name = 1;
+    int64 birthDate = 2;
+    bool isBoardMember = 3;
+    string country = 4;
+    string globalId = 5;
+    string bio = 6;
+    repeated WorkExperience workExperiences= 7;
+    repeated Education educations = 8;
+    string source = 9;
+    ComplianceCheckRecord complianceCheckRecord = 10;
+    bool isWealthFamilyMember = 11;
+    string gender = 12;
+    double score = 13;
+    com.mioying.data.models.protobuf.common.MioDataElementType elementType = 14;
+    repeated string searchNames = 15;
+    SearchLanguage language = 51;
+    SearchPeopleChineseExtendInfo chineseExtendInfo = 52;
+}
+
+message SearchPeopleChineseExtendInfo {
+    string nameCn = 1;
+    string bioCn = 2;
+}
+
+message ComplianceCheckRecord {
+    string aliases = 1;
+    string dob = 2;
+    string placeOfBirth = 3;
+    string position = 4;
+    string countries = 5;
+    string category = 6;
+    string subCategory = 7;
+    string companies = 8;
+    string linkedTo = 9;
+    string keywords = 10; //deprecated
+    string furtherInformation = 11;
+    string updated = 12;
+    string type = 13; //deprecated
+    repeated ComplianceCheckKeyword keywordDetailInfo = 14;
+}
+
+message ComplianceCheckKeyword {
+    string keyword = 1;
+    string fullNameOfSource = 2;
+    string countryOfAuthority = 3;
+    string type = 4;
+    string explanation = 5;
+    string typeAbbrev = 6;
+}
+
+enum EventTagType {
+    EVENT_TAG_OTHERS=0;
+    EVENT_TAG_ORGANIZATION=1;
+    EVENT_TAG_COMPANY=2;
+    EVENT_TAG_PEOPLE=3;
+    EVENT_TAG_LOCATION=4;
+    EVENT_TAG_COMMERCIAL_ITEM=5;
+    EVENT_TAG_EVENT=6;
+}
+
+message EventTag {
+    string id = 1;
+    double relevance_score = 2;
+    EventTagType category = 3;
+}
+
+message SearchNarrative {
+    string title = 1;
+    string content = 2;
+    repeated string tags = 3;
+    string type = 4; //deprecated
+    int64 timestamp = 5;
+    string sentiment = 6; //deprecated
+    string author = 7;
+    repeated string relatedEntityIds = 8; //deprecated
+    string globalId = 9;
+    repeated string assetIds = 10;
+    string eventType = 11;
+    string externalRef = 13;
+    string source = 14;
+    double significance = 15;
+    string abstract = 16;
+    repeated string significantTag = 17;
+    string label = 18;
+    double sentimentScore = 19;
+    repeated string entities = 20; //deprecated
+    repeated string locations = 21; //deprecated
+    string sourceCountry = 22;
+    string sourceCountryCode = 23;
+    SearchNarrativeKeyDevExtendInfo keydevExtendInfo = 24;
+    SearchNarrativeEarningsExtendInfo earningsExtendInfo = 25;
+    repeated string companyIds = 26;
+    repeated string nerCompanies = 27;
+    repeated string nerPeople = 28;
+    repeated string nerLocations = 29;
+    repeated string nerIndustries = 30;
+    repeated string nerSubjects = 31;
+    repeated string peopleIds = 32;
+    double sourceWeight = 33;
+    SearchLanguage language = 34;
+    SearchNarrativeChineseExtendInfo chineseExtendInfo = 35;
+}
+
+message SearchNarrativeKeyDevExtendInfo {
+    string eventType = 1;
+    string eventSubType = 2;
+}
+
+message SearchNarrativeEarningsExtendInfo {
+    int32 year = 1;
+    int32 quarter = 2;
+    int64 actualReportDate = 3;
+    repeated SearchEarningsMeasure earningsMeasure = 4;
+}
+
+message SearchNarrativeChineseExtendInfo {
+    string titleCn = 1;
+    string contentCn = 2;
+    repeated string tagsCn = 3;
+    string abstractCn = 4;
+    repeated string significantTag = 5;
+}
+
+message SearchEarningsMeasure {
+    string code = 1;
+    string currencyCode = 2;
+    double actualReported = 3;
+    double surprisePercent = 4;
+    double standardizedUnexpectedEarnings = 5;
+    int32 numberOfEstimates = 6;
+    double estimateMean = 7;
+    double estimateHigh = 8;
+    double estimateLow = 9;
+    double estimateMedian = 10;
+    double estimateStandardDeviation = 11;
+    EarningsEventType earningsEventType = 12;
+}
+
+enum EarningsEventType {
+    MISSING = 0;
+    EARNINGS_EQUAL_CONSENSUS = 1;
+    EARNINGS_BEAT_CONSENSUS = 2;
+    EARNINGS_MISS_CONSENSUS = 3;
+    EARNINGS_SIGNIFICANTLY_BEAT_CONSENSUS = 4;
+    EARNINGS_SIGNIFICANTLY_MISS_CONSENSUS = 5;
+}
+
+message GetSearchFieldValueListRequest {
+    string fieldName = 1;
+}
+
+message GetSearchFieldValueListResult {
+    repeated string valueList = 1;
+}
+
+message SearchIndividualTransaction {
+    string globalId = 1;
+    int64 announcedTimestamp = 2;
+    int64 closedTimestamp = 3;
+    string type = 4;
+    string target = 5;
+    repeated string buyers = 6;
+    repeated string sellers = 7;
+    double transactionSize = 8;
+    int32 round = 9;
+    double aggregatedAmountRaised = 10;
+    double impliedEquityValue = 11;
+    double impliedEnterpriseValue = 12;
+    SearchIndividualTransactionChineseExtendInfo chineseExtendInfo = 13;
+    string roundText = 14;
+}
+
+message SearchIndividualTransactionChineseExtendInfo {
+    string transactionSizeCn = 1;
+    string roundCn = 2;
+    string projectCn = 3;
+    string industryCn = 4;
+    string productDescriptionCn = 5;
+    string impliedEnterpriseValue = 6;
+    double ratio = 7;
+    string projectId = 8;
+    string investorName = 9;
+    string companyType = 10;
+}
+
+message SearchAsset {
+    com.mioying.data.models.protobuf.AssetIDGroup assetIDGroup = 1;
+    com.mioying.data.models.protobuf.SecurityType securityType = 4;
+    com.mioying.data.models.protobuf.MarketSector marketSector = 5;
+    bool userCreated = 6;
+    string userId = 7;
+    string currency = 8;
+    string chineseName = 9;
+    string countryOfDomicile = 11;
+    com.mioying.data.models.protobuf.Exchange exchange = 12;
+    string sector = 13;
+    string industry = 14;
+    string subIndustry = 15;
+    string market = 16;
+    string region = 17;
+    Description description = 18;
+    string contractId = 19;
+    repeated string bankAccount = 20;
+    string source = 21;
+    com.mioying.data.models.protobuf.PricePoint currenctPrice = 22;
+    com.mioying.data.models.protobuf.ProductType productType = 23;
+    oneof subFields {
+        com.mioying.data.models.protobuf.EquityAssetFields equityAsset = 200;
+        com.mioying.data.models.protobuf.FundAssetFields fundAsset = 201;
+        com.mioying.data.models.protobuf.CurrencyAssetFields currencyAsset = 202;
+        com.mioying.data.models.protobuf.FixedInomeAssetFields fixedIncomeAsset = 203;
+        com.mioying.data.models.protobuf.NonBankableAssetFields nonBankableAsset = 204;
+        com.mioying.data.models.protobuf.TransactionAssetFields transactionAsset = 205;
+        com.mioying.data.models.protobuf.FXAssetFields fxAsset = 206;
+        com.mioying.data.models.protobuf.UserProductAssetFields userProductAsset = 207;
+    }
+    int64 version = 999;
+    string globalId = 1000;
+    SearchAssetChineseExtendInfo chineseExtendInfo = 1001;
+}
+
+message SearchAssetChineseExtendInfo {
+    string shortNameCn = 1;
+}
+
+message Description {
+    string companyDescriptions = 1;
+    string address = 2;
+    string zipCode = 3;
+    string phone = 4;
+    string website = 5;
+    string employees = 6;
+    string issuerName = 7;
+    string businessSummary = 8;
+    string financialSummary = 9;
+    string companyName = 10;
+    string companyId = 11;
+    string financialDataCompanyId = 12;
+}
+
+message SearchTag {
+    string globalId = 1;
+    string name = 2;
+    com.mioying.data.models.protobuf.common.MioDataElementType elementType = 3;
+    repeated string searchNames = 4;
+}
+
+enum SearchLanguage {
+    SEARCH_LANGUAGE_ENGLISH = 0;
+    SEARCH_LANGUAGE_CHINESE = 1;
+    SEARCH_LANGUAGE_ALL = 2;
+}

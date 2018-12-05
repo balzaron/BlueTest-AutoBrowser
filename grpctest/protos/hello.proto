@@ -1,0 +1,20 @@
+syntax = "proto3";
+package grpctest;
+service hello {
+  rpc sayYo(request) returns (response){}
+}
+message request {
+  string text = 1;
+  int32 age = 2;
+  sub sub1 = 3;
+}
+
+message response {
+    string answer = 1;
+    int32 time = 2;
+}
+
+message sub {
+    string sub1 = 1;
+    int32 sub2 = 2;
+}

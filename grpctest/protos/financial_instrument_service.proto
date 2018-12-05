@@ -1,0 +1,351 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.miotech.financialinstrument";
+option java_outer_classname = "FinancialInstrument";
+
+package com.mioying.financialinstrument;
+
+import "dmp.proto";
+
+// top level data platform definition
+service FinancialInstrumentService {
+    // search dmp and get the assetIdList back (com.mioying.data.models.protobuf.support ISIN and TICKER)
+
+    //  status: Test Case Developing
+    //  priority: high
+    //  external interface
+    rpc search (com.mioying.data.models.protobuf.SearchRequest) returns (com.mioying.data.models.protobuf.SearchResult) {
+    }
+
+    //  status: Test Case Developing
+    //  priority: medium
+    //  external interface
+    rpc retrieveAllAssetTag (RetrieveAllAssetTagRequest) returns (RetrieveAllAssetTagResult) {
+    }
+
+    //  status: Test Case Developing
+    //  priority: medium
+    //  external interface
+    rpc addAssetTagCategory (AddAssetTagCategoryRequest) returns (AddAssetTagCategoryResult) {
+    }
+
+    //  status: Test Case Developing
+    //  priority: medium
+    //  external interface
+    rpc editAssetTagCategory (EditAssetTagCategoryRequest) returns (EditAssetTagCategoryResult) {
+    }
+
+    //  status: Test Case Developing
+    //  priority: medium
+    //  external interface
+    rpc removeAssetTagCategory (RemoveAssetTagCategoryRequest) returns (RemoveAssetTagCategoryResult) {
+    }
+
+    //  status: Test Case Developing
+    //  priority: medium
+    //  external interface
+    rpc retrieveAssetTagType (RetrieveAssetTagTypeRequest) returns (RetrieveAssetTagTypeResult) {
+    }
+
+    //  status: Test Case Developing
+    //  priority: medium
+    //  external interface
+    rpc addAssetTag (AddAssetTagRequest) returns (AddAssetTagResult) {
+    }
+
+    //  status: Test Case Developing
+    //  priority: medium
+    //  external interface
+    rpc editAssetTag (EditAssetTagRequest) returns (EditAssetTagResult) {
+    }
+
+    //  status: Test Case Developing
+    //  priority: medium
+    //  external interface
+    rpc removeAssetTag (RemoveAssetTagRequest) returns (RemoveAssetTagResult) {
+    }
+
+    //  status: Test Case Developing
+    //  priority: medium +
+    //  external interface
+    rpc retrieveAssignedTag (RetrieveAssignedTagRequest) returns (RetrieveAssignedTagResult) {
+    }
+
+    //  status: Test Case Developing
+    //  priority: medium
+    //  external interface
+    rpc saveAssignedTag (SaveAssignedTagRequest) returns (SaveAssignedTagResult) {
+    }
+
+    //  status: Test Case Developing
+    //  priority: medium +
+    //  external interface
+    rpc aggregateAssetIdsByChoice (com.mioying.data.models.protobuf.AggregateAssetIdsByChoiceRequest) returns (com.mioying.data.models.protobuf.AggregateAssetIdsByChoiceResult) {
+    }
+
+    //  status: Test Case Developing
+    //  priority: medium
+    //  external interface
+    rpc retrieveTaggedAssets (RetrieveTaggedAssetsRequest) returns (RetrieveTaggedAssetsResult) {
+    }
+
+    //  status: Test Case Developing
+    //  priority: medium
+    //  external interface
+    rpc retrieveTaglistByTagType (RetrieveTaglistByTagTypeRequest) returns (RetrieveTaglistByTagTypeResult) {
+    }
+
+    rpc retrieveAssetByScenario (com.mioying.data.models.protobuf.RetrieveAssetByScenarioRequest) returns (com.mioying.data.models.protobuf.RetrieveAssetByScenarioResult) {
+    }
+
+    //  status: Test Case Developing
+    //  priority: medium
+    //  external interface
+    rpc retrieveAssetAlias (com.mioying.data.models.protobuf.RetrieveAssetAliasRequest) returns (com.mioying.data.models.protobuf.RetrieveAssetAliasResult) {
+    }
+
+    //  status: Test Case Developing
+    //  priority:   low
+    //  external interface
+    rpc retrieveAssetFile (com.mioying.data.models.protobuf.RetrieveAssetFileRequest) returns (com.mioying.data.models.protobuf.RetrieveAssetFileResult) {
+    }
+
+    //  status: Test Case Developing
+    //  priority: medium
+    //  external interface
+    rpc addAssetAlias (com.mioying.data.models.protobuf.AddAssetAliasRequest) returns (com.mioying.data.models.protobuf.AddAssetAliasResult) {
+    }
+
+    //  status: Test Case Developing
+    //  priority:   low
+    //  external interface
+    rpc addAssetFile (com.mioying.data.models.protobuf.AddAssetFileRequest) returns (com.mioying.data.models.protobuf.AddAssetFileResult) {
+    }
+
+    //  status: Test Case Developing
+    //  priority: medium
+    //  external interface
+    rpc editAssetAlias (com.mioying.data.models.protobuf.EditAssetAliasRequest) returns (com.mioying.data.models.protobuf.EditAssetAliasResult) {
+    }
+
+    //  status: Test Case Developing
+    //  priority:   low
+    //  external interface
+    rpc editAssetFile (com.mioying.data.models.protobuf.EditAssetFileRequest) returns (com.mioying.data.models.protobuf.EditAssetFileResult) {
+    }
+
+    //  status: Test Case Developing
+    //  priority: medium
+    //  external interface
+    rpc removeAssetAlias (com.mioying.data.models.protobuf.RemoveAssetAliasRequest) returns (com.mioying.data.models.protobuf.RemoveAssetAliasResult) {
+    }
+
+    //  status: Test Case Developing
+    //  priority:   low
+    //  external interface
+    rpc removeAssetFile (com.mioying.data.models.protobuf.RemoveAssetFileRequest) returns (com.mioying.data.models.protobuf.RemoveAssetFileResult) {
+    }
+
+    //  status: Test Case Developing
+    //  priority: medium
+    //  external interface
+    rpc queryAssetTagRecord (AssetTagRecordRequest) returns (AssetTagRecordResult) {
+    }
+}
+
+
+message AssetTagChoiceDataObject {
+    int64 assetTagChoiceId = 1;
+    string assetTagChoiceName = 2;
+    bool selected = 3;
+}
+
+
+message AssetTagType {
+    int64 assetTagTypeId = 1;
+    string assetTagTypeName = 2;
+    string appId = 3;
+}
+
+
+message AssetTagRecord {
+    int64 recordId = 1;
+    int64 assetId = 2;
+    int64 assetTagId = 3;
+    string assetTagValue = 4;
+    int64 insertTime = 5;
+}
+
+message AssetTagData {
+    int64 assetTagId = 1;
+    string assetTagName = 2;
+    int64 assetTagTypeId = 3;
+    string assetTagTypeName = 4;
+    string assetTagInputContent = 5;
+    repeated AssetTagChoiceDataObject assetTagChoices = 6;
+    bool assetTagScenarioSelected = 7;
+    float assetTagScenarioIncomePerYear = 8;
+    float assetTagScenarioReturnExpectation = 9;
+    string assetTagScenarioIncomePerYearStr = 10;
+    string assetTagScenarioReturnExpectationStr = 11;
+}
+
+
+message AssetTagObject {
+    int64 assetTagCategoryId = 1;
+    string assetTagCategoryName = 2;
+    repeated AssetTagData assetTags = 3;
+    bool emptyTags = 4;
+    bool nameEditable = 5;
+    bool contentEditable = 6;
+}
+
+
+
+message RetrieveAllAssetTagRequest {
+    string appId = 1;
+}
+
+message RetrieveAllAssetTagResult {
+    bool success = 1;
+    repeated AssetTagObject assetTagObject = 2;
+}
+
+
+message AddAssetTagCategoryRequest {
+    string appId = 1;
+    string assetTagCategoryName = 2;
+}
+
+message AddAssetTagCategoryResult {
+    bool success = 1;
+    int64 assetTagCategoryId = 2;
+}
+
+
+
+message EditAssetTagCategoryRequest {
+    string appId = 1;
+    int64 assetTagCategoryId = 2;
+    string assetTagCategoryName = 3;
+}
+
+message EditAssetTagCategoryResult {
+    bool success = 1;
+    string errorMessage = 2;
+}
+
+
+
+message RemoveAssetTagCategoryRequest {
+    string appId = 1;
+    int64 assetTagCategoryId = 2;
+}
+
+message RemoveAssetTagCategoryResult {
+    bool success = 1;
+}
+
+
+
+message RetrieveAssetTagTypeRequest {
+    string appId = 1;
+}
+
+message RetrieveAssetTagTypeResult {
+    bool success = 1;
+    repeated AssetTagType assetTagType = 2;
+}
+
+
+message AddAssetTagRequest {
+    string appId = 1;
+    int64 assetTagCategoryId = 2;
+    AssetTagData assetTagData = 3;
+}
+
+message AddAssetTagResult {
+    bool success = 1;
+    int64 assetTagId = 2;
+}
+
+
+message EditAssetTagRequest {
+    string appId = 1;
+    int64 assetTagCategoryId = 2;
+    AssetTagData assetTagData = 3;
+}
+
+message EditAssetTagResult {
+    bool success = 1;
+    string errorMessage = 2;
+}
+
+
+message RemoveAssetTagRequest {
+    string appId = 1;
+    int64 assetTagId = 2;
+}
+
+message RemoveAssetTagResult {
+    bool success = 1;
+}
+
+
+message RetrieveAssignedTagRequest {
+    string appId = 1;
+    int64 assetId = 2;
+    bool allTags = 3;
+}
+
+message RetrieveAssignedTagResult {
+    bool success = 1;
+    repeated AssetTagObject assetTagObject = 2;
+    bool emptyTags = 3;
+}
+
+
+message SaveAssignedTagRequest {
+    string appId = 1;
+    int64 assetId = 2;
+    repeated AssetTagData assetTagData = 3;
+}
+
+message SaveAssignedTagResult {
+    bool success = 1;
+}
+
+
+message RetrieveTaggedAssetsRequest {
+    string appId = 1;
+    int64 assetTagId = 2;
+    bool requestAll = 3;
+}
+
+message RetrieveTaggedAssetsResult {
+    bool success = 1;
+    repeated int64 assetId = 2;
+}
+
+
+message RetrieveTaglistByTagTypeRequest {
+    string appId = 1;
+    string tagType = 2;
+}
+
+message RetrieveTaglistByTagTypeResult {
+    bool success = 1;
+    repeated AssetTagData assetTagData = 2;
+}
+
+
+message AssetTagRecordRequest {
+    int64 assetId = 1;
+    int64 assetTagId = 2;
+}
+
+message AssetTagRecordResult {
+    bool success = 1;
+    repeated AssetTagRecord assetTagRecord = 2;
+}
