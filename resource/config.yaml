@@ -1,14 +1,14 @@
 userInfo:
-  email: tech+aic@mioying.com
-  password: Welcome1
-  login_url: https://release.miotech.com/
-  cookie: 13e02e844f3a80e474d511cab9689c3f78db2766-u=00dfed35-9c46-4b7f-b251-7d4bf56b02ff
+  email: 
+  password: 
+  login_url: 
+  cookie: 
 
 wait: 3
 
 drivers:
-  chrome: /Users/miotech/opt/chromedriver
-  firefox: /Users/miotech/opt/geckodriver
+  chrome: chromedriver
+  firefox: geckodriver
 
 log:
   path: /tmp/logs/
@@ -20,14 +20,14 @@ log:
 
 
 workflow:
-  url: https://release.miotech.com/workflow/admin/folder
+  url: 
 
 
 grpc:
   timeout: 350
-  pikachu:
-    host: 18.182.39.102
-    port: 9876
-  fi:
-    host: 18.182.39.102
-    port: 9221
+  p1:
+    host: 
+    port: 0
+  p2:
+    host:
+    port: 0
