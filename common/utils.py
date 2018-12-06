@@ -52,7 +52,3 @@ def get_csv_data(path):
             l = tuple(l)
             ret.append(l)
         return ret
-
-if __name__ == '__main__':
-    r = get_csv_data('grpcdata.csv')
-    print(r)
