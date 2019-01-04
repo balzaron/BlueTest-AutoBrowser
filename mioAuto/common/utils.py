@@ -4,7 +4,6 @@ import csv, json
 
 from google.protobuf.json_format import MessageToJson
 from google.protobuf.message import Message
-from collections import namedtuple
 
 def get_current_function_name():
     return inspect.stack()[1][3]
@@ -77,5 +76,5 @@ class dict2obj(object):
 def wrapperLink(url:str):
     return "<a href=\"{}\", target=\"_blank\">{}</a>".format(url, url)
 
-if __name__ == '__main__':
-    print(__file__)
+def getSubCurrentFunctionName():
+    return inspect.stack()

@@ -4,3 +4,6 @@
 # from .log import *
 # from .model import *
 # from .ocr import *
+
+logPath = '/tmp/logs/'
+imagePathPrefix = logPath

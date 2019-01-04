@@ -27,3 +27,12 @@ class NotSupportBrowserException(Exception):
 
     def __str__(self):
         return self.err.format(self.browser)
+
+class NotSupportObjYetExpection(Exception):
+    def __init__(self, obj:str, err = 'The object {} is not support now!'):
+        super().__init__()
+        self.err = err
+        self.obj = obj
+
+    def __str__(self):
+        return self.err.format(self.obj)

@@ -1,31 +1,24 @@
-from unittest import TestCase
-
-
-class caseTemplate(TestCase):
-    _browser = None
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self._browser = self.browser(kwargs.get('cookie'), kwargs.get('domain'))
-
-    @property
-    def browser(self):
-        return self._browser
-
-    @browser.setter
-    def browser(self, cookie='', domaim=''):
-        self._browser = cookie+domaim
-
-    def tool1(self):
-        print('tool1')
+from mioAuto import imagePathPrefix
+from mioAuto.common.utils import *
 
 
 
-class case1(caseTemplate):
+class fort(object):
 
-    # def __init__(self, cookie, domain):
-    #     super().__init__(*args, **kwargs)
 
-    def testM1(self):
-        self.browser('cookie', 'domain')
-        print(self.browser)
+    def saveImage(self, fn, index:int):
+        folder = imagePathPrefix + self.__class__.__name__ + '/'
+        assemble = folder+fn+ str(index)+'.png'
+        print(assemble)
 
+class fss(fort):
+
+    def ff(self):
+        i=0
+        self.saveImage(get_current_function_name(), i)
+        i+=1
+        self.saveImage(get_current_function_name(),i)
+
+if __name__ == '__main__':
+    f=fss()
+    f.ff()

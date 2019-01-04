@@ -54,5 +54,3 @@ def code_gen(filename):
         with open(filename, 'w') as f:
             f.writelines(CODE_TEMPLATE_AUTO_BROWSER.format(**obj))
 
-if __name__ == '__main__':
-    code_gen('life.py')
