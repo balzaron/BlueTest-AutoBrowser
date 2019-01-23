@@ -1,30 +1,78 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
-# Note: To use the 'upload' functionality of this file, you must:
-#   $ pip install twine
-
+# #!/usr/bin/env python
+# # -*- coding: utf-8 -*-
+#
+# # Note: To use the 'upload' functionality of this file, you must:
+# #   $ pip install twine
+#
 import io
 import os
 import sys
 from shutil import rmtree
-
 from setuptools import find_packages, setup, Command
 
-# Package meta-data.
+#
+# # Package meta-data.
 NAME = 'mioAuto'
-DESCRIPTION = 'A e2e testing framework.'
-URL = 'https://github.com/me/myproject'
+DESCRIPTION = 'An e2e testing core.'
+URL = 'https://github.com/balzaron/BlueTest-AutoBrowser'
 EMAIL = 'shanyue.gao@mioying.com'
 AUTHOR = 'shanyue.gao'
 REQUIRES_PYTHON = '>=3.7.0'
-VERSION = None
-
-# What packages are required for this module to be executed?
+VERSION = "0.0.1"
+#
+# # What packages are required for this module to be executed?
 REQUIRED = [
-    'requests', 'grpcio', 'grpc-tools', 'googleapis-common-protos',
-    'selenium','PyYAML', 'aircv', 'TestLink-API-Python-client',
-    'protobuf', 'opencv-python', 'numpy'
+    "	aiohttp==3.4.4	",
+    "	aircv==1.4.6	",
+    "	asn1crypto==0.24.0	",
+    "	async-timeout==3.0.1	",
+    "	atomicwrites==1.2.1	",
+    "	attrs==18.2.0	",
+    "	better-exceptions-fork==0.2.1.post6	",
+    "	cchardet==2.1.4	",
+    "	certifi==2018.10.15	",
+    "	cffi==1.11.5	",
+    "	chardet==3.0.4	",
+    "	colorama==0.4.1	",
+    "	cryptography==2.3.1	",
+    "	Deprecated==1.2.4	",
+    "	googleapis-common-protos==1.5.5	",
+    "	grpcio==1.16.1	",
+    "	grpcio-tools==1.16.1	",
+    "	idna==2.7	",
+    "	Jinja2==2.10	",
+    "	loguru==0.2.4	",
+    "	lxml==4.2.5	",
+    "	miotech-py-commons==0.0.1	",
+    "	more-itertools==4.3.0	",
+    "	multidict==4.5.2	",
+    "	numpy==1.15.4	",
+    "	oauthlib==2.1.0	",
+    "	opencv-python==3.4.4.19	",
+    "	pandas==0.23.4	",
+    "	Pillow==5.3.0	",
+    "	pluggy==0.8.0	",
+    "	protobuf==3.6.1	",
+    "	py==1.7.0	",
+    "	pycparser==2.19	",
+    "	Pygments==2.3.1	",
+    "	pymongo==3.7.2	",
+    "	pyOpenSSL==18.0.0	",
+    "	pytesseract==0.2.6	",
+    "	pytest==4.0.0	",
+    "	python-dateutil==2.7.5	",
+    "	pytz==2018.9	",
+    "	PyYAML==3.13	",
+    "	requests==2.19.1	",
+    "	requests-oauthlib==0.8.0	",
+    "	selenium==3.141.0	",
+    "	six==1.11.0	",
+    "	TestLink-API-Python-client==0.8.0	",
+    "	unittest-data-provider==1.0.1	",
+    "	unittest-xml-reporting==2.2.0	",
+    "	urllib3==1.23	",
+    "	wrapt==1.11.0	",
+    "	yarl==1.2.6	",
 ]
 
 # What packages are optional?
@@ -89,14 +137,14 @@ class UploadCommand(Command):
         self.status('Pushing git tags…')
         os.system('git tag v{0}'.format(about['__version__']))
         os.system('git push --tags')
-        
+
         sys.exit()
-
-
-# Where the magic happens:
+#
+#
+# # Where the magic happens:
 setup(
     name=NAME,
-    version=about['__version__'],
+    version=VERSION,
     description=DESCRIPTION,
     long_description=long_description,
     long_description_content_type='text/markdown',
@@ -130,3 +178,14 @@ setup(
         'upload': UploadCommand,
     },
 )
+
+setup(name='autoMiotech',
+      version='0.0.1',
+      description='Miotech Library for Python automatic testing',
+      author='shanyue.gao',
+      author_email='shanyue.gao@mioying.com',
+      license='Apache 2.0',
+      packages=find_packages(),
+      include_package_data=True,
+      zip_safe=False,
+      install_requires=REQUIRED)

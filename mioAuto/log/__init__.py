@@ -20,5 +20,3 @@ fp = fp+'mioauto_{time}.log'
 
 logger.add(fp, **__logConfig)
 logger.start(sys.stderr, format="{level} {time} {message}", filter="my_module", level="INFO")
-
-logger.error('this is so easy')

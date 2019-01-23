@@ -3,6 +3,7 @@
 import logging
 
 from selenium import webdriver
+
 from mioAuto.expection.Expections import NotSupportBrowserException
 from mioAuto.model.BrowserObj import Browser
 
@@ -32,10 +33,10 @@ def buildBrowser(browserInfo:Browser):
         raise NotSupportBrowserException(browser.type)
 
     browser.get(browserInfo.initPage)
+    browser.delete_all_cookies()
     browser.add_cookie({
         'name': 'MIOYING_SESSION',
         'value': browserInfo.cookie,
     })
     browser.implicitly_wait(1)
     return browser
-

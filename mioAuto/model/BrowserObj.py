@@ -1,3 +1,6 @@
+from dataclasses import dataclass
+
+
 class Browser(object):
 
     @property
@@ -31,6 +34,14 @@ class Browser(object):
     @type.setter
     def type(self, value):
         self._type = value
+
+@dataclass(init=False)
+class Browser(object):
+    cookie:str
+    driverPath:str
+    initPage:str
+    type:str
+
 
 if __name__ == '__main__':
     a = Browser()

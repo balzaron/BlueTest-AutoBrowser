@@ -9,8 +9,8 @@ logger = logging.getLogger(__name__)
 
 class Request(object):
     user: User = None
-    tmp_data: Response = None
-    tmp_data_list: list=[]
+    data: Response = None
+    data_list: list=[]
 
     def __init__(self, cookies):
         _cookies = {'MIOYING_SESSION': cookies}
@@ -39,17 +39,17 @@ class Request(object):
             url = url[:-1]
             # logger.info(url)
             try:
-                self.tmp_data = self.__session.get(url, verify=False, headers=self.headers)
-                self.tmp_data_list.append(self.tmp_data)
-                # logger.info(self.tmp_data)
+                self.data = self.__session.get(url, verify=False, headers=self.headers)
+                self.data_list.append(self.data)
+                # logger.info(self.data)
                 return self
             except Exception as e:
                 logger.error(e)
         elif url is not None and data is None:
             try:
-                self.tmp_data = self.__session.get(url, verify=False, headers=self.headers)
-                self.tmp_data_list.append(self.tmp_data)
-                logger.info(self.tmp_data)
+                self.data = self.__session.get(url, verify=False, headers=self.headers)
+                self.data_list.append(self.data)
+                logger.info(self.data)
                 return self
             except Exception as e:
                 logger.error(e)
@@ -66,8 +66,8 @@ class Request(object):
         if data is not None and url is not None:
             # try:
             data = json.dumps(data)
-            self.tmp_data = self.__session.post(url=url, data=data, headers=self.headers)
-            self.tmp_data_list.append(self.tmp_data)
+            self.data = self.__session.post(url=url, data=data, headers=self.headers)
+            self.data_list.append(self.data)
             return self
             # except Exception as e:
             #     logger.error(e)
@@ -83,8 +83,8 @@ class Request(object):
         if data is not None and url is not None:
             try:
                 data = json.dumps(data)
-                self.tmp_data = data.session.put(url, data, verify=False, headers=self.headers)
-                # self.tmp_data_list.append(self.tmp_data)
+                self.data = data.session.put(url, data, verify=False, headers=self.headers)
+                # self.data_list.append(self.data)
                 return self
             except Exception as e:
                 logger.error(e)
@@ -97,8 +97,3 @@ class Request(object):
     def assertion(self):
         pass
 
-
-if __name__ == '__main__':
-    r = Request('02671a462d53d0df4f20d4c71530ce9fc1150e6a-u=66f98abc-fe99-4210-9ab0-d40d0150f15d')
-    res = r.get('https://release.miotech.com/api/user/whoami')
-    print(res)

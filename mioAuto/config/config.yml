@@ -1,0 +1,11 @@
+
+datasource:
+  type: none
+  host: none
+  port: none
+
+timeparameters:
+  commonwait: 0.95
+  browser:
+    timeout: 10
+    scanStep: 0.5

@@ -1,7 +1,6 @@
 import time
 from functools import wraps
-
-
+from pymongo import MongoClient
 
 def dataProvider(fn_data_provider):
     """Data provider decorator, allows another callable to provide the data for the test"""
@@ -32,3 +31,21 @@ def timeConsumer(timeout = 500):
 
         return wrapper
     return deco_func
+
+
+def mongoDataProvider(collection):
+    """Data provider decorator, allows another callable to provide the data for the test"""
+    fn_data_provider = collection.get('steps')
+    def test_decorator(fn):
+        @wraps(fn)
+        def repl(self, *args):
+            for i in fn_data_provider:
+                try:
+                    fn(self, *i)
+                except AssertionError:
+                    print("Assertion error caught with data set ", i)
+                    raise
+
+        return repl
+
+    return test_decorator
