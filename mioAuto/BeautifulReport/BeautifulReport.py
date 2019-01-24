@@ -18,6 +18,7 @@ import base64
 from distutils.sysconfig import get_python_lib
 import traceback
 from functools import wraps
+from mioAuto.common.utils import get_abs_path
 
 __all__ = ['BeautifulReport']
 
@@ -49,7 +50,7 @@ stdout_redirector = OutputRedirector(sys.stdout)
 stderr_redirector = OutputRedirector(sys.stderr)
 
 SYSSTR = platform.system()
-SITE_PAKAGE_PATH = get_python_lib()
+SITE_PAKAGE_PATH = get_abs_path(__file__)
 
 FIELDS = {
     "testPass": 0,
@@ -66,7 +67,7 @@ FIELDS = {
 
 class PATH:
     """ all file PATH meta """
-    config_tmp_path = SITE_PAKAGE_PATH + '/BeautifulReport/template/template'
+    config_tmp_path = SITE_PAKAGE_PATH + '/template/template'
 
 
 class MakeResultJson:
