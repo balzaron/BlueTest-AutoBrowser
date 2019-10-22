@@ -50,7 +50,7 @@ REQUIRED = [
     "	oauthlib==2.1.0	",
     "	opencv-python==3.4.4.19	",
     "	pandas==0.23.4	",
-    "	Pillow==5.3.0	",
+    "	Pillow==6.2.0	",
     "	pluggy==0.8.0	",
     "	protobuf==3.6.1	",
     "	py==1.7.0	",
