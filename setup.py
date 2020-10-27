@@ -34,7 +34,7 @@ REQUIRED = [
     "	cffi==1.11.5	",
     "	chardet==3.0.4	",
     "	colorama==0.4.1	",
-    "	cryptography==2.3.1	",
+    "	cryptography==3.2	",
     "	Deprecated==1.2.4	",
     "	googleapis-common-protos==1.5.5	",
     "	grpcio==1.16.1	",
