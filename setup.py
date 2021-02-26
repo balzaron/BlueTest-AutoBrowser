@@ -22,7 +22,7 @@ VERSION = "0.0.1"
 #
 # # What packages are required for this module to be executed?
 REQUIRED = [
-    "	aiohttp==3.4.4	",
+    "	aiohttp==3.7.4	",
     "	aircv==1.4.6	",
     "	asn1crypto==0.24.0	",
     "	async-timeout==3.0.1	",
