@@ -40,7 +40,7 @@ REQUIRED = [
     "	grpcio==1.16.1	",
     "	grpcio-tools==1.16.1	",
     "	idna==2.7	",
-    "	Jinja2==2.10	",
+    "	Jinja2==2.11.3	",
     "	loguru==0.2.4	",
     "	lxml==4.2.5	",
     "	miotech-py-commons==0.0.1	",
