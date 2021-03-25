@@ -62,7 +62,7 @@ REQUIRED = [
     "	pytest==4.0.0	",
     "	python-dateutil==2.7.5	",
     "	pytz==2018.9	",
-    "	PyYAML==3.13	",
+    "	PyYAML==5.4	",
     "	requests==2.19.1	",
     "	requests-oauthlib==0.8.0	",
     "	selenium==3.141.0	",
