@@ -55,7 +55,7 @@ REQUIRED = [
     "	protobuf==3.6.1	",
     "	py==1.7.0	",
     "	pycparser==2.19	",
-    "	Pygments==2.3.1	",
+    "	Pygments==2.7.4	",
     "	pymongo==3.7.2	",
     "	pyOpenSSL==18.0.0	",
     "	pytesseract==0.2.6	",
