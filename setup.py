@@ -53,7 +53,7 @@ REQUIRED = [
     "	Pillow==5.3.0	",
     "	pluggy==0.8.0	",
     "	protobuf==3.6.1	",
-    "	py==1.7.0	",
+    "	py==1.10.0	",
     "	pycparser==2.19	",
     "	Pygments==2.3.1	",
     "	pymongo==3.7.2	",
