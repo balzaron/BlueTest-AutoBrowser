@@ -70,7 +70,7 @@ REQUIRED = [
     "	TestLink-API-Python-client==0.8.0	",
     "	unittest-data-provider==1.0.1	",
     "	unittest-xml-reporting==2.2.0	",
-    "	urllib3==1.23	",
+    "	urllib3==1.26.5	",
     "	wrapt==1.11.0	",
     "	yarl==1.2.6	",
 ]
