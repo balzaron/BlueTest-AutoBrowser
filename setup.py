@@ -48,7 +48,7 @@ REQUIRED = [
     "	multidict==4.5.2	",
     "	numpy==1.15.4	",
     "	oauthlib==2.1.0	",
-    "	opencv-python==3.4.4.19	",
+    "	opencv-python==3.4.7.28	",
     "	pandas==0.23.4	",
     "	Pillow==5.3.0	",
     "	pluggy==0.8.0	",
