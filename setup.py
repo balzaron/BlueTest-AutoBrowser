@@ -52,7 +52,7 @@ REQUIRED = [
     "	pandas==0.23.4	",
     "	Pillow==5.3.0	",
     "	pluggy==0.8.0	",
-    "	protobuf==3.6.1	",
+    "	protobuf==3.15.0	",
     "	py==1.7.0	",
     "	pycparser==2.19	",
     "	Pygments==2.3.1	",
