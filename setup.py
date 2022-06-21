@@ -46,7 +46,7 @@ REQUIRED = [
     "	miotech-py-commons==0.0.1	",
     "	more-itertools==4.3.0	",
     "	multidict==4.5.2	",
-    "	numpy==1.15.4	",
+    "	numpy==1.22.0	",
     "	oauthlib==2.1.0	",
     "	opencv-python==3.4.4.19	",
     "	pandas==0.23.4	",
