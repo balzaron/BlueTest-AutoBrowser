@@ -42,7 +42,7 @@ REQUIRED = [
     "	idna==2.7	",
     "	Jinja2==2.10	",
     "	loguru==0.2.4	",
-    "	lxml==4.2.5	",
+    "	lxml==4.9.1	",
     "	miotech-py-commons==0.0.1	",
     "	more-itertools==4.3.0	",
     "	multidict==4.5.2	",
