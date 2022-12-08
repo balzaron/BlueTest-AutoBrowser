@@ -30,7 +30,7 @@ REQUIRED = [
     "	attrs==18.2.0	",
     "	better-exceptions-fork==0.2.1.post6	",
     "	cchardet==2.1.4	",
-    "	certifi==2018.10.15	",
+    "	certifi==2022.12.7	",
     "	cffi==1.11.5	",
     "	chardet==3.0.4	",
     "	colorama==0.4.1	",
